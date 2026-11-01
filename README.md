@@ -24,7 +24,17 @@ WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
 }
 
-At this point, I tried to write a less specific query, without the autoantigens detail.
+At this point, I tried to write a less specific query, without the autoantigens detail:
+
+SELECT ?gene ?geneLabel ?protein ?proteinLabel
+WHERE
+{
+  ?gene wdt:P2293 wd:Q124407;
+        wdt:P688 ?protein.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}
+
+With this query I managed to obtain 41 results.
 
 
 
