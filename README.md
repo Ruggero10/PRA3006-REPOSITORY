@@ -13,7 +13,7 @@ By searching "celiac disease" on Wikidata and then going down to the "genetic as
 
 By searching "type-1 diabetes" on Wikidata and then going down to the "genetic association" section you can find all the genes involved in type-1 diabetes mellitus.
 
-I tried to write a more specific query on the Wikidata Query Service in order to find not only the genes involved in type-1 diabetes mellitus, but also only the genes that encode for proteins that are autoantigens in order to find the targets of the autoimmune attacks. However, I could not get any result with this query:
+I tried to write a more specific query on the Wikidata Query Service, not only to find the genes involved in type-1 diabetes mellitus, but also to find the genes that only encode for proteins that are autoantigens in order to find the targets of the autoimmune attacks. However, I could not get any result with this query:
 
 SELECT ?gene ?geneLabel ?protein ?proteinLabel
 WHERE
