@@ -37,4 +37,24 @@ WHERE
 With this query I managed to obtain 41 results.
 
 
+I created a simple SPARQL query to obtain the genes involved in Celiac disease:
+
+SELECT ?gene ?geneLabel 
+WHERE
+{
+  VALUES ?disease {wd:Q11088}
+  ?gene wdt:P2293 ?disease;
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}
+
+I created a simple SPARQL query to obtain the genes involved in type-1 diabetes mellitus:
+
+SELECT ?gene ?geneLabel 
+WHERE
+{
+  VALUES ?disease {wd:Q124407}
+  ?gene wdt:P2293 ?disease;
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}
+                
 
