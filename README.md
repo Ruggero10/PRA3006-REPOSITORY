@@ -56,5 +56,15 @@ WHERE
   ?gene wdt:P2293 ?disease;
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
 }
-                
+
+
+I then tried to create a SPARQL query to get only the genes that are shared between the two diseases:
+
+SELECT ?gene ?geneLabel 
+WHERE
+{
+  ?gene wdt:P2293 wd:Q11088,
+        wd:Q124407   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}
 
