@@ -68,3 +68,29 @@ WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
 }
 
+However, there are too few results. This makes the research question less interesting.
+
+I then tried to search for a more interesting question.
+
+Which genes are involved in the pathogenesis of type 1 diabetes mellitus and are also shared with other autoimmune diseases (specifying which ones)?
+
+I therefore tried to create a SPARQL query to obtain the genes that are involved in type 1 diabetes mellitus, but that are also associated with other autoimmune diseases:
+
+SELECT DISTINCT ?gene ?geneLabel ?disease ?diseaseLabel
+WHERE
+{
+  ?gene wdt:P2293 wd:Q124407.
+  
+  {?disease wdt:P279* wd:Q8084905.}
+  UNION
+  {?disease wdt:P31/wdt:P279* wd:Q8084905.}
+  
+  ?gene wdt:P2293 ?disease.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,it". }
+}
+ORDER BY ?geneLabel ?diseaseLabel
+LIMIT 1000
+
+By using this query I got 64 results.
+
+
