@@ -93,4 +93,6 @@ LIMIT 1000
 
 By using this query I got 64 results.
 
+SPARQL endpoint: https://www.wikidata.org/
+
 
