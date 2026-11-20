@@ -18,3 +18,18 @@ WHERE
 ORDER BY ?geneLabel ?diseaseLabel
 LIMIT 1000
 `;
+
+async function fetchRawResults() {
+  const url = `${SPARQL_ENDPOINT}?format=json&query=${encodeURIComponent(SPARQL_QUERY)}`;
+
+  const response = await fetch(url, {
+    headers: { "Accept": "application/sparql-results+json" }
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP Error: ${response.status}`);
+  }
+
+  const json = await response.json();
+  return json.results.bindings;
+}
