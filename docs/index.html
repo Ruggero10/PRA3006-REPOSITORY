@@ -16,21 +16,21 @@
     <p>One of the most known autoimmune diseases is type 1 diabetes mellitus, but is there also a correlation with the others autoimmune diseases? Our goal is to provide a list of autoimmune diseases that have a connection with type 1 diabetes mellitus through shared genes in order to facilitate a better understanding of how these diseases can be connected and to facilitate further therapeutic research in this field.</p>
     <h3>VISUALIZATION OF THE BIOLOGICAL CONNECTIONS</h3>
     
-    <p id="status">Loading data from Wikidata...</p>
+    <div class="legend">
+    <span><i class="dot" style="background:#d62728"></i>Type 1 Diabetes (Root)</span>
+    <span><i class="dot" style="background:#1f77b4"></i>Shared Gene</span>
+    <span><i class="dot" style="background:#17becf"></i>T1D-Only Gene</span>
+    <span><i class="dot" style="background:#ff7f0e"></i>Other Autoimmune Disease</span>
+  </div>
 
-  <table id="results-table">
-    <thead>
-      <tr>
-        <th>Gene</th>
-        <th>Associated Disease</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <p id="status">Loading data from Wikidata...</p>
+  <div id="chart"></div>
+
+  <script src="https://d3js.org"></script>
 
   <script src="sparql.js"></script>
 
-  <script src="table.js"></script>
+  <script src="D3.js"></script>
 
   </body>
 

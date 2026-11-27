@@ -1,29 +1,81 @@
 "use strict";
 
-async function renderTable() {
+async function renderChart() {
   const statusEl = document.getElementById("status");
-  const tbody = document.querySelector("#results-table tbody");
 
   try {
-    const rows = await fetchRawResults();
-    statusEl.textContent = `Loaded ${rows.length} rows successfully!`;
 
-    rows.forEach(row => {
-      const tr = document.createElement("tr");
+        const data = await fetchT1DHierarchy();
+    statusEl.textContent = `Loaded ${data.children.length} genes connected to Type 1 Diabetes.`;
 
-      const geneName = row.geneLabel ? row.geneLabel.value : row.gene.value;
-      const diseaseName = row.diseaseLabel ? row.diseaseLabel.value : row.disease.value;
+  // Specify the chart’s dimensions.
+  const width = 1152;
+  const height = width;
+  const cx = width * 0.5; // adjust as needed to fit
+  const cy = height * 0.54; // adjust as needed to fit
+  const radius = Math.min(width, height) / 2 - 140;
 
-      tr.innerHTML = `
-        <td>${geneName}</td>
-        <td>${diseaseName}</td>
-      `;
-      tbody.appendChild(tr);
-    });
+  // Create a radial cluster layout. The layout’s first dimension (x)
+  // is the angle, while the second (y) is the radius.
+  const tree = d3.cluster()
+      .size([2 * Math.PI, radius])
+      .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+
+  // Sort the tree and apply the layout.
+  const root = tree(d3.hierarchy(data)
+      .sort((a, b) => d3.ascending(a.data.name, b.data.name)));
+
+  // Creates the SVG container.
+  const svg = d3.create("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", [-cx, -cy, width, height])
+      .attr("style", "width: 100%; height: auto; font: 10px sans-serif;");
+
+  // Append links.
+  svg.append("g")
+      .attr("fill", "none")
+      .attr("stroke", "#555")
+      .attr("stroke-opacity", 0.4)
+      .attr("stroke-width", 1.5)
+    .selectAll()
+    .data(root.links())
+    .join("path")
+      .attr("d", d3.linkRadial()
+          .angle(d => d.x)
+          .radius(d => d.y));
+
+  // Append nodes.
+  svg.append("g")
+    .selectAll()
+    .data(root.descendants())
+    .join("circle")
+      .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
+      .attr("fill", d => d.children ? "#555" : "#999")
+      .attr("r", 2.5);
+
+  // Append labels.
+  svg.append("g")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-width", 3)
+    .selectAll()
+    .data(root.descendants())
+    .join("text")
+      .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0) rotate(${d.x >= Math.PI ? 180 : 0})`)
+      .attr("dy", "0.31em")
+      .attr("x", d => d.x < Math.PI === !d.children ? 6 : -6)
+      .attr("text-anchor", d => d.x < Math.PI === !d.children ? "start" : "end")
+      .attr("paint-order", "stroke")
+      .attr("stroke", "white")
+      .attr("fill", "currentColor")
+      .text(d => d.data.name);
+
+    document.getElementById("chart").appendChild(svg.node());
+
   } catch (err) {
     statusEl.textContent = `Error: ${err.message}`;
     console.error(err);
   }
 }
 
-renderTable();
+renderChart();
