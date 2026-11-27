@@ -8,6 +8,14 @@ async function renderChart() {
         const data = await fetchT1DHierarchy();
     statusEl.textContent = `Loaded ${data.children.length} genes connected to Type 1 Diabetes.`;
 
+     data.children.forEach(gene => {
+      if (gene.children) {
+        gene.children = gene.children.filter(
+          disease => !disease.name.toLowerCase().includes("type-1 diabetes")
+        );
+      }
+    });
+
   // Specify the chart’s dimensions.
   const width = 1400;
   const height = width;
