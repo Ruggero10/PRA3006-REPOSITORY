@@ -13,7 +13,7 @@ async function renderChart() {
   const height = width;
   const cx = width * 0.5; // adjust as needed to fit
   const cy = height * 0.5; // adjust as needed to fit
-  const radius = Math.min(width, height) / 2 - 230;
+  const radius = Math.min(width, height) / 2 - 320;
 
   // Create a radial cluster layout. The layout’s first dimension (x)
   // is the angle, while the second (y) is the radius.
