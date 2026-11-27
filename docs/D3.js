@@ -25,9 +25,9 @@ async function renderChart() {
 
   // Create a radial cluster layout. The layout’s first dimension (x)
   // is the angle, while the second (y) is the radius.
-  const tree = d3.cluster()
-      .size([2 * Math.PI, radius])
-      .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+  const tree = d3.tree()
+        .size([2 * Math.PI, radius])
+        .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
 
   // Sort the tree and apply the layout.
   const root = tree(d3.hierarchy(data)
