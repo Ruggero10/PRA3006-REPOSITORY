@@ -1,6 +1,6 @@
 "use strict";
 
-const SPARQL_ENDPOINT = "https://wikidata.org";
+const SPARQL_ENDPOINT = "https://query.wikidata.org/sparql";
 const T1D_IRI = "http://wikidata.org";
 
 const SPARQL_QUERY = `
