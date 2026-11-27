@@ -9,11 +9,11 @@ async function renderChart() {
     statusEl.textContent = `Loaded ${data.children.length} genes connected to Type 1 Diabetes.`;
 
   // Specify the chart’s dimensions.
-  const width = 1152;
+  const width = 1400;
   const height = width;
   const cx = width * 0.5; // adjust as needed to fit
-  const cy = height * 0.54; // adjust as needed to fit
-  const radius = Math.min(width, height) / 2 - 140;
+  const cy = height * 0.5; // adjust as needed to fit
+  const radius = Math.min(width, height) / 2 - 230;
 
   // Create a radial cluster layout. The layout’s first dimension (x)
   // is the angle, while the second (y) is the radius.
